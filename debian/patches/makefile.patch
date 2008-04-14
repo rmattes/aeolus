@@ -1,0 +1,32 @@
+--- Makefile.orig	2008-04-14 15:38:21.000000000 +0100
++++ Makefile	2008-04-14 15:38:43.000000000 +0100
+@@ -14,9 +14,9 @@
+ #  along with this program; if not, write to the Free Software
+ #  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ 
+-
+-PREFIX = /usr/local
+-SUFFIX := $(shell uname -m | sed -e 's/^unknown/$//' -e 's/^i.86/$//' -e 's/^x86_64/$/64/')
++DESTDIR=
++PREFIX = /usr
++#SUFFIX := $(shell uname -m | sed -e 's/^unknown/$//' -e 's/^i.86/$//' -e 's/^x86_64/$/64/')
+ LIBDIR = lib$(SUFFIX)
+ VERSION = 0.8.1
+ DISTDIR = aeolus-$(VERSION)
+@@ -64,11 +64,11 @@
+ 
+ 
+ install:	aeolus aeolus_x11.so aeolus_txt.so 
+-	/usr/bin/install -d $(PREFIX)/$(LIBDIR)
+-	/usr/bin/install -m 755 aeolus $(PREFIX)/bin
+-	/usr/bin/install -m 755 aeolus_x11.so $(PREFIX)/$(LIBDIR)
+-	/usr/bin/install -m 755 aeolus_txt.so $(PREFIX)/$(LIBDIR)
+-	/sbin/ldconfig $(PREFIX)/$(LIBDIR)
++	/usr/bin/install -d $(DESTDIR)$(PREFIX)/$(LIBDIR)
++	/usr/bin/install -m 755 aeolus $(DESTDIR)$(PREFIX)/bin
++	/usr/bin/install -m 755 aeolus_x11.so $(DESTDIR)$(PREFIX)/$(LIBDIR)
++	/usr/bin/install -m 755 aeolus_txt.so $(DESTDIR)$(PREFIX)/$(LIBDIR)
++#	/sbin/ldconfig $(PREFIX)/$(LIBDIR)
+ 
+ clean:
+ 	/bin/rm -f *~ *.o *.d *.a *.so aeolus

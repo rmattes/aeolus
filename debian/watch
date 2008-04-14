@@ -1,0 +1,3 @@
+# Site		Directory	Pattern		Version	Script
+version=3
+http://www.kokkinizita.net/linuxaudio/downloads/index.html aeolus-([0-9].*)\.tar\.bz2

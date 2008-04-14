@@ -1,0 +1,32 @@
+aeolus (0.8.1-1) unstable; urgency=low
+
+  * New upstream release
+  * Updated watch file
+  * Updated makefile patch
+
+ -- Free Ekanayaka <freee@debian.org>  Mon, 14 Apr 2008 15:22:24 +0100
+
+aeolus (0.6.6+2-4) unstable; urgency=low
+
+  * Added icon to the .desktop file (thanks to Daniel James)
+
+ -- Free Ekanayaka <freee@debian.org>  Mon, 21 May 2007 14:36:51 +0200
+
+aeolus (0.6.6+2-3) unstable; urgency=low
+
+  * Relaxed build dep on clxclient to allow etch backports
+
+ -- Free Ekanayaka <freee@debian.org>  Thu, 17 May 2007 14:12:36 +0200
+
+aeolus (0.6.6+2-2) unstable; urgency=low
+
+  * Build depend on bug-fixed clxclient
+
+ -- Free Ekanayaka <freee@debian.org>  Mon, 14 May 2007 22:18:54 +0200
+
+aeolus (0.6.6+2-1) unstable; urgency=low
+
+  * Initial release (Closes: #420586)
+
+ -- Free Ekanayaka <freee@debian.org>  Mon, 23 Apr 2007 00:08:25 +0200
+

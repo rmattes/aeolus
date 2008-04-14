@@ -1,0 +1,2 @@
+?package(aeolus):needs="X11" section="Apps/Sound"\
+  title="aeolus" command="/usr/bin/aeolus"
