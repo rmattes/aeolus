@@ -1,2 +1,2 @@
-?package(aeolus):needs="X11" section="Apps/Sound"\
+?package(aeolus):needs="X11" section="Applications/Sound"\
   title="aeolus" command="/usr/bin/aeolus"
