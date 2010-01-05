@@ -5,8 +5,14 @@ Maintainer: Debian Multimedia Maintainers <pkg-multimedia-maintainers@lists.alio
 Uploaders: Free Ekanayaka <freee@debian.org>,
  Alessio Treglia <quadrispro@ubuntu.com>
 DM-Upload-Allowed: yes
-Build-Depends: cdbs, debhelper (>= 5), libasound2-dev, libjack-dev, libclthreads-dev, libclxclient-dev (>= 3.3.1), libclalsadrv-dev
-Standards-Version: 3.7.2
+Build-Depends: cdbs,
+ debhelper (>= 5),
+ libasound2-dev,
+ libjack-dev,
+ libclthreads-dev,
+ libclxclient-dev (>= 3.3.1),
+ libclalsadrv-dev
+Standards-Version: 3.8.3
 
 Package: aeolus
 Architecture: any
