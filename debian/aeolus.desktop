@@ -5,4 +5,4 @@ Exec=/usr/bin/aeolus
 Terminal=false
 Type=Application
 Icon=audio-x-generic
-Categories=Application;AudioVideo;Audio;
+Categories=AudioVideo;Audio;
