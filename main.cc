@@ -33,7 +33,11 @@
 #include "iface.h"
 
 
+#ifdef __linux__
 static char *options = "htuAJBM:N:S:I:W:d:r:p:n:";
+#else
+static char *options = "htuJBM:N:S:I:W:";
+#endif
 static char  optline [1024];
 static bool  t_opt = false;
 static bool  u_opt = false;
@@ -61,17 +65,23 @@ static void help (void)
     fprintf (stderr, "  -h                 Display this text\n");
     fprintf (stderr, "  -t                 Text mode user interface\n");
     fprintf (stderr, "  -u                 Use presets file in user's home dir\n");
+#ifdef __linux__
     fprintf (stderr, "  -N <name>          Name to use as JACK and ALSA client [aeolus]\n");   
+#else
+    fprintf (stderr, "  -N <name>          Name to use as JACK and CoreMIDI client [aeolus]\n");   
+#endif
     fprintf (stderr, "  -S <stops>         Name of stops directory [stops]\n");   
     fprintf (stderr, "  -I <instr>         Name of instrument directory [Aeolus]\n");   
     fprintf (stderr, "  -W <waves>         Name of waves directory [waves]\n");   
     fprintf (stderr, "  -B                 Ambisonics B format output (JACK only)\n");
     fprintf (stderr, "  -J                 Use JACK (default)\n");
+#ifdef __linux__
     fprintf (stderr, "  -A                 Use ALSA, with options:\n");
     fprintf (stderr, "    -d <device>        Alsa device [default]\n");
     fprintf (stderr, "    -r <rate>          Sample frequency [48000]\n");
     fprintf (stderr, "    -p <period>        Period size [1024]\n");
     fprintf (stderr, "    -n <nfrags>        Number of fragments [2]\n\n");
+#endif
     exit (1);
 }
 
@@ -197,8 +207,12 @@ int main (int ac, char *av [])
     }
 
     audio = new Audio (N_val, &note_queue, &comm_queue);
+#ifdef __linux__
     if (A_opt) audio->init_alsa (d_val, r_val, p_val, n_val);
     else       audio->init_jack (B_opt, &midi_queue);
+#else
+    audio->init_jack (B_opt, &midi_queue);
+#endif
     model = new Model (&comm_queue, &midi_queue, audio->midimap (), audio->appname (), S_val, I_val, W_val, u_opt);
     imidi = new Imidi (&note_queue, &midi_queue, audio->midimap (), audio->appname ());
     slave = new Slave ();

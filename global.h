@@ -1,5 +1,6 @@
 /*
     Copyright (C) 2003-2008 Fons Adriaensen <fons@kokkinizita.net>
+    Copyright (C) 2008 Hans Fugal <hans@fugal.net> (OSX version)
     
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,9 +22,15 @@
 #define __GLOBAL_H
 
 
+#ifdef __APPLE__
+#include <machine/endian.h>
+#define __LITTLE_ENDIAN	__DARWIN_LITTLE_ENDIAN
+#define __BIG_ENDIAN	__DARWIN_BIG_ENDIAN
+#define __PDP_ENDIAN	__DARWIN_PDP_ENDIAN
+#define	__BYTE_ORDER	__DARWIN_BYTE_ORDER
+#else
 #include <endian.h>
-#include "lfqueue.h"
-
+#endif
 
 #ifdef __BYTE_ORDER
 #if (__BYTE_ORDER == __LITTLE_ENDIAN)
@@ -37,11 +44,13 @@
 #define RD2(p) ((p)[1] + ((p)[0] << 8));
 #define RD4(p) ((p)[3] + ((p)[2] << 8) + ((p)[1] << 16) + ((p)[0] << 24));
 #else
-#error Byte order is undefined !
+#error Byte order is not supported !
 #endif
 #else
 #error Byte order is undefined !
 #endif
+
+#include "lfqueue.h"
 
 
 enum // GLOBAL LIMITS 

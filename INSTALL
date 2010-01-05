@@ -1,13 +1,13 @@
-AEOLUS 0.8.0  BUILD INSTRUCTIONS
-________________________________
+AEOLUS 0.8.2  BUILD INSTRUCTIONS (LINUX)
+_______________________________________
 
 
 To build this version, you need to have the shared
 libraries
 
 *  libclalsadrv.so.1.2.2
-*  libclthreads.so.2.2.1
-*  libclxclient.so.3.3.2
+*  libclthreads.so.2.4.0
+*  libclxclient.so.3.6.0
 
 and the corresponding header files installed.
 They should be available from the same place where
@@ -19,7 +19,7 @@ Three binary files will be made:
 *  aeolus_x11.so     GUI plugin,
 *  aeolus_txt.so     text mode user interface.
 
-In this version the latter is just an empty stub.
+In this version the latter is functional but not complete.
 
 The default Makefile will install the Aeolus binary
 in /usr/local/bin, and the user interface plugins in
@@ -42,6 +42,14 @@ After a successful install you may do a 'make clean'.
 problems (and solutions) to <fons@kokkinizita.net>.
 
 See also the README file for run-time configuration.
+
+
+AEOLUS 0.8.2  BUILD INSTRUCTIONS (OSX)
+_____________________________________
+
+
+See the file BUILD-osx
+
 
 -- 
 FA

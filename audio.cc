@@ -31,7 +31,9 @@ Audio::Audio (const char *name, Lfq_u32 *qnote, Lfq_u32 *qcomm) :
     _qcomm (qcomm),
     _qmidi (0),
     _running (false),
+#ifdef __linux__
     _alsa_handle (0),
+#endif
     _jack_handle (0),
     _abspri (0),
     _relpri (0),
@@ -49,7 +51,9 @@ Audio::~Audio (void)
 {
     int i;
 
+#ifdef __linux__
     if (_alsa_handle) close_alsa ();
+#endif
     if (_jack_handle) close_jack ();
     for (i = 0; i < _nasect; i++) delete _asectp [i];
     for (i = 0; i < _ndivis; i++) delete _divisp [i];
@@ -105,6 +109,7 @@ void Audio::start (void)
 }
 
 
+#ifdef __linux__
 void Audio::init_alsa (const char *device, int fsamp, int fsize, int nfrag)
 {
     _alsa_handle = new Alsa_driver (device, fsamp, fsize, nfrag, true, false, false);
@@ -130,20 +135,24 @@ void Audio::init_alsa (const char *device, int fsamp, int fsize, int nfrag)
 	}
     }
 }
+#endif
 
 
+#ifdef __linux__
 void Audio::close_alsa ()
 {
-    _running = false;
+    _running = false;	
     fprintf (stderr, "Closing ALSA.\n");
     get_event (1 << EV_EXIT);
     for (int i = 0; i < _nplay; i++) delete[] _outbuf [i];
     delete _alsa_handle;
 }
+#endif
 
 
 void Audio::thr_main (void) 
 {
+#ifdef __linux__
     unsigned long k;
 
     _alsa_handle->pcm_start ();
@@ -168,6 +177,7 @@ void Audio::thr_main (void)
 
     _alsa_handle->pcm_stop ();
     put_event (EV_EXIT);
+#endif
 }
 
 
@@ -437,7 +447,7 @@ void Audio::proc_queue (Lfq_u32 *Q)
     union     { uint32_t i; float f; } u;
 
     // Execute commands from the model thread (qcomm),
-    // or from the midi thread (qmidi).
+    // or from the midi thread (qnote).
 
     n = Q->read_avail ();
     while (n > 0)

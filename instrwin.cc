@@ -165,6 +165,7 @@ void Instrwin::setup (M_ifc_init *M)
 	}
         D++;
     }
+
     if (n1)
     {
         add_text (x1,       5, 80, 20, "Trem freq", &text0, -1);

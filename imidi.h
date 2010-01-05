@@ -1,5 +1,6 @@
 /*
     Copyright (C) 2003-2008 Fons Adriaensen <fons@kokkinizita.net>
+    Copyright (C) 2008 Hans Fugal <hans@fugal.net>
     
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,7 +25,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <clthreads.h>
+#ifdef __linux__
 #include <alsa/asoundlib.h>
+#endif
+#ifdef __APPLE__
+#include <CoreMIDI/MIDIServices.h>
+#endif
 #include "lfqueue.h"
 #include "messages.h"
 
@@ -38,6 +44,9 @@ public:
     virtual ~Imidi (void);
 
     void terminate (void);
+#ifdef __APPLE__
+    void coremidi_proc (const MIDIPacketList *pktlist, void *refCon, void *connRefCon);
+#endif
 
 private:
 
@@ -52,7 +61,12 @@ private:
     Lfq_u8         *_qmidi; 
     uint16_t       *_midimap;
     const char     *_appname;
+#ifdef __linux__
     snd_seq_t      *_handle;
+#endif
+#ifdef __APPLE__
+    MIDIClientRef   _handle;
+#endif
     int             _client;
     int             _ipport;
     int             _opport;
@@ -60,4 +74,3 @@ private:
 
 
 #endif
-

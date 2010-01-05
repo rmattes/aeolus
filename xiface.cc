@@ -79,7 +79,7 @@ void Xiface::thr_main (void)
     inc_time (125000);
     while (! _stop)
     {
-	switch (get_event_timed ())
+        switch (get_event_timed ())
 	{
         case EV_TIME:
 	    handle_time ();

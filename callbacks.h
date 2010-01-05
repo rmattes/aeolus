@@ -21,7 +21,7 @@
 #define __CALLBACKS_H
 
 
-#include "clxclient.h"
+#include <clxclient.h>
 
 
 enum 

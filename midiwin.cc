@@ -93,6 +93,7 @@ void Midiwin::setup (M_ifc_init *M)
     y = _matrix->ysize () + 20;
     but1.size.x = 30;
     but1.size.y = 20;
+
     for (i = 0; i < 8; i++)
     {
         sprintf (s, "%d", i + 1);
@@ -100,6 +101,7 @@ void Midiwin::setup (M_ifc_init *M)
 	_bpres [i]->x_map ();
         x += 32;
     } 
+
     x += 10;
     add_text (x, y, 200, 20, "Shift-click to store preset", &text0, -1);
     _xs = _matrix->xsize () + 20;
@@ -120,7 +122,7 @@ void Midiwin::setup (M_ifc_init *M)
 void Midiwin::setconf (M_ifc_chconf *M)
 {
     int k;
- 
+
     k = M->_index;
     if (k >= 0)
     {

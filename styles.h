@@ -21,7 +21,7 @@
 #define __STYLES_H
 
 
-#include "clxclient.h"
+#include <clxclient.h>
 
 
 struct colors

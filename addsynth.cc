@@ -18,7 +18,7 @@
 
 
 #include <string.h>
-#include <endian.h>
+#include "global.h"
 #include "addsynth.h"
 
 
@@ -118,7 +118,7 @@ void N_func::write (FILE *F)
     fwrite (d, N_NOTE, sizeof (float), F);
 
 #else
-#error Byte order is undefined !
+#error Byte order is not supported !
 #endif
 #else
 #error Byte order is undefined !
@@ -146,7 +146,7 @@ void N_func::read (FILE *F)
     for (i = 0; i < N_NOTE; i++) swap4 ((char *)(_v + i), d + i * sizeof (float));
 
 #else
-#error Byte order is undefined !
+#error Byte order is not supported !
 #endif
 #else
 #error Byte order is undefined !
