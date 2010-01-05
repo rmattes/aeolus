@@ -1,4 +1,4 @@
-aeolus (0.8.2-1) UNRELEASED; urgency=low
+aeolus (0.8.2-1) unstable; urgency=low
 
   * New upstream release.
   * debian/control:
@@ -8,10 +8,12 @@ aeolus (0.8.2-1) UNRELEASED; urgency=low
     - Bump-up Standards.
     - Add Vcs-* tags.
     - Add Homepage field.
+    - Build-depend on libreadline5-dev.
    * Fix debian/menu as per spec.
    * Fix desktop file as per spec.
    * debian/copyright:
      - Update according to the DEP-5 spec.
+   * Remove unnecessary debian/dirs file.
 
  -- Alessio Treglia <quadrispro@ubuntu.com>  Tue, 05 Jan 2010 19:41:22 +0100
 
