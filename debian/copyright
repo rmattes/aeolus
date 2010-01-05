@@ -1,30 +1,31 @@
-This package was debianized by Free Ekanayaka <freee@debian.org> on
-Mon, 23 Apr 2007 00:08:25 +0200.
+Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=59
+Name: Aeolus
+Maintainer: Fons Adriaensen <fons.adriaensen@skynet.be>
+Source: http://www.kokkinizita.net/linuxaudio/downloads/index.html
 
-It was downloaded from http://users.skynet.be/solaris/linuxaudio/getit.html
+Files: *
+Copyright: 2005-2008, Fons Adriaensen <fons.adriaensen@skynet.be>
+License: GPL-2+
 
-Upstream Author: Fons Adriaensen <fons.adriaensen@skynet.be>
+Files: debian/*
+Copyright:
+ 2009, Alessio Treglia <quadrispro@ubuntu.com>
+ 2007-2008, Free Ekanayaka <freee@debian.org>
+License: GPL-2+
 
-Copyright: 2005-2007 Fons Adriaensen
-
-License:
-
-   This package is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
-
-   This package is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this package; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-
-On Debian systems, the complete text of the GNU General
-Public License can be found in `/usr/share/common-licenses/GPL'.
-
-The Debian packaging is (C) 2007, Free Ekanayaka <freee@debian.org> and
-is licensed under the GPL, see above.
+License: GPL-2
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this package; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+X-Comment: On Debian systems, the complete text of the GNU General
+ Public License can be found in `/usr/share/common-licenses/GPL-2'.
