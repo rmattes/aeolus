@@ -21,7 +21,7 @@
 #define __EDITWIN_H
 
 
-#include "clxclient.h"
+#include <clxclient.h>
 #include "multislider.h"
 #include "functionwin.h"
 #include "addsynth.h"

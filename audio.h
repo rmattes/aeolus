@@ -23,7 +23,9 @@
 
 #include <stdlib.h>
 #include <clthreads.h>
+#ifdef __linux__
 #include <clalsadrv.h>
+#endif
 #include <jack/jack.h>
 #include "asection.h"
 #include "division.h"
@@ -38,7 +40,9 @@ public:
 
     Audio (const char *jname, Lfq_u32 *qnote, Lfq_u32 *qcomm);
     virtual ~Audio (void);
+#ifdef __linux__
     void  init_alsa (const char *device, int fsamp, int fsize, int nfrag);
+#endif
     void  init_jack (bool bform, Lfq_u8 *qmidi);
     void  start (void);
 
@@ -53,7 +57,9 @@ private:
     enum { VOLUME, REVSIZE, REVTIME, STPOSIT };
 
     void init_audio (void);
+#ifdef __linux__
     void close_alsa (void);
+#endif
     void close_jack (void);
     virtual void thr_main (void);
     void jack_shutdown (void);
@@ -114,7 +120,9 @@ private:
     Lfq_u32        *_qcomm; 
     Lfq_u8         *_qmidi;
     volatile bool   _running;
+#ifdef __linux__
     Alsa_driver    *_alsa_handle;
+#endif
     jack_client_t  *_jack_handle;
     jack_port_t    *_jack_opport [8];
     jack_port_t    *_jack_midipt;

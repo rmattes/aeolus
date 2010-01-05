@@ -21,7 +21,7 @@
 #define __FUNCTIONWIN_H
 
 
-#include "clxclient.h"
+#include <clxclient.h>
 
 
 class Functionwin : public X_window

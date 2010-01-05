@@ -21,7 +21,7 @@
 #define __MIDIMATRIX_H
 
 
-#include "clxclient.h"
+#include <clxclient.h>
 #include "messages.h"
 
 

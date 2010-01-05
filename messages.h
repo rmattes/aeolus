@@ -34,6 +34,7 @@ enum
     FM_MODEL = 10,
     FM_IMIDI = 11,
     FM_AUDIO = 12,
+    FM_TXTIP = 13,
     TO_SLAVE =  8,
     TO_IFACE =  9,
     TO_MODEL = 10,
@@ -79,7 +80,8 @@ enum
     MT_IFC_PRGET,
     MT_IFC_EDIT,
     MT_IFC_APPLY,
-    MT_IFC_SAVE
+    MT_IFC_SAVE,
+    MT_IFC_TXTIP
 };
 
 
@@ -329,6 +331,19 @@ public:
     int        _group;
     int        _ifelm;
     Addsynth  *_synth;
+};
+
+
+class M_ifc_txtip : public ITC_mesg
+{
+public:
+
+    M_ifc_txtip (void) :
+        ITC_mesg (MT_IFC_TXTIP),
+        _line (0)
+    {}
+
+    char  *_line;
 };
 
 

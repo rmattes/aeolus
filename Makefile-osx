@@ -1,4 +1,5 @@
 #  Copyright (C) 2003-2008 Fons Adriaensen <fons@kokkinizita.net>
+#  Copyright (C) 2008 Hans Fugal <hans@fugal.net>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -26,23 +27,23 @@ CPPFLAGS += -O3 -Wall -MMD -MP -DVERSION=\"$(VERSION)\" -DLIBDIR=\"$(PREFIX)/$(L
 all:	aeolus aeolus_x11.so aeolus_txt.so
 
 
-AEOLUS_O =	main.o audio.o model.o slave.o imidi.o addsynth.o scales.o \
+AEOLUS_O =	main.o audio.o model.o slave.o imidi-osx.o addsynth.o scales.o \
 		reverb.o asection.o division.o rankwave.o rngen.o exp2ap.o lfqueue.o
-aeolus:	LDLIBS += -lclalsadrv -lclthreads -lpthread -ljack -lasound -lpthread -lrt
+aeolus:	LDLIBS += -lclthreads -lpthread -ljack -lpthread -framework Cocoa -framework CoreMIDI
 aeolus: LDFLAGS += -L$(PREFIX)/$(LIBDIR)
 aeolus:	$(AEOLUS_O)
 	g++ $(LDFLAGS) -o $@ $(AEOLUS_O) $(LDLIBS)
 
-addsynth.o:	CPPFLAGS += -fpic -D_REENTRANT
+addsynth.o:	CPPFLAGS += -dynamic -D_REENTRANT
 $(AEOLUS_O):
 -include $(AEOLUS_O:%.o=%.d)
 
 
 XIFACE_O =	styles.o mainwin.o midiwin.o audiowin.o instrwin.o editwin.o midimatrix.o \
 		multislider.o functionwin.o xiface.o addsynth.o
-aeolus_x11.so:	CPPFLAGS += -fpic -D_REENTRANT -I/usr/X11R6/include -I/usr/include/freetype2
+aeolus_x11.so:	CPPFLAGS += -dynamic -D_REENTRANT -I/usr/X11R6/include `freetype-config --cflags`
 aeolus_x11.so:	LDLIBS += -lclthreads -lclxclient -lXft -lX11
-aeolus_x11.so:	LDFLAGS += -shared -L$(PREFIX)/$(LIBDIR) -L/usr/X11R6/$(LIBDIR)
+aeolus_x11.so:	LDFLAGS += -dynamiclib -L$(PREFIX)/$(LIBDIR) -L/usr/X11R6/$(LIBDIR)
 aeolus_x11.so: $(XIFACE_O) $(LIBCLX)
 	g++ $(LDFLAGS) -o $@ $(XIFACE_O) $(LDLIBS)
 
@@ -52,9 +53,9 @@ $(XIFACE_O):
 
 
 TIFACE_O =	tiface.o
-aeolus_txt.so:	CPPFLAGS += -fpic -D_REENTRANT
-aeolus_txt.so:	LDLIBS += -lclthreads
-aeolus_txt.so:	LDFLAGS += -shared -L$(PREFIX)/$(LIBDIR)
+aeolus_txt.so:	CPPFLAGS += -dynamic -D_REENTRANT
+aeolus_txt.so:	LDLIBS += -lclthreads -lreadline
+aeolus_txt.so:	LDFLAGS += -dynamiclib -L$(PREFIX)/$(LIBDIR)
 aeolus_txt.so: $(TIFACE_O)
 	g++ $(LDFLAGS) -o $@ $(TIFACE_O) $(LDLIBS)
 
@@ -68,7 +69,6 @@ install:	aeolus aeolus_x11.so aeolus_txt.so
 	/usr/bin/install -m 755 aeolus $(PREFIX)/bin
 	/usr/bin/install -m 755 aeolus_x11.so $(PREFIX)/$(LIBDIR)
 	/usr/bin/install -m 755 aeolus_txt.so $(PREFIX)/$(LIBDIR)
-	/sbin/ldconfig $(PREFIX)/$(LIBDIR)
 
 clean:
 	/bin/rm -f *~ *.o *.d *.a *.so aeolus
@@ -81,5 +81,3 @@ tarball:
 	tar cvf $(DISTDIR).tar $(DISTDIR); \
 	bzip2 $(DISTDIR).tar; \
 	/bin/rm -f -r $(DISTDIR);
-
-

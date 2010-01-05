@@ -1320,24 +1320,17 @@ int Model::read_presets (void)
     FILE           *F;
     Preset         *P;
 
-    F = 0;
     if (_uhome)
     {
         p = (unsigned char *)(getenv ("HOME"));
         if (p) sprintf (name, "%s/.aeolus-presets", p);
         else strcpy (name, ".aeolus-presets");
-        F = fopen (name, "r"); 
-	if (F == 0)
-        {
-	    fprintf (stderr, "Can't open '%s' for reading\n", name);
-        }
     }
-    if (F == 0)
+    else
     {
 	sprintf (name, "%s/presets", _instr);
-        F = fopen (name, "r"); 
     }
-    if (F == 0)
+    if (! (F = fopen (name, "r"))) 
     {
 	fprintf (stderr, "Can't open '%s' for reading\n", name);
         return 1;
