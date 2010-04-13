@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2003-2008 Fons Adriaensen <fons@kokkinizita.net>
+    Copyright (C) 2003-2010 Fons Adriaensen <fons@kokkinizita.net>
     
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ struct temper
 };
 
 
-#define NSCALES 5
+#define NSCALES 11
 
 extern struct temper scales [NSCALES];
   

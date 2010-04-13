@@ -1,4 +1,4 @@
-#  Copyright (C) 2003-2008 Fons Adriaensen <fons@kokkinizita.net>
+#  Copyright (C) 2003-2010 Fons Adriaensen <fons@kokkinizita.net>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -9,7 +9,7 @@
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
@@ -18,10 +18,10 @@
 PREFIX = /usr/local
 SUFFIX := $(shell uname -m | sed -e 's/^unknown/$//' -e 's/^i.86/$//' -e 's/^x86_64/$/64/')
 LIBDIR = lib$(SUFFIX)
-VERSION = 0.8.2
+VERSION = 0.8.4
 DISTDIR = aeolus-$(VERSION)
 CPPFLAGS += -O3 -Wall -MMD -MP -DVERSION=\"$(VERSION)\" -DLIBDIR=\"$(PREFIX)/$(LIBDIR)\"
-#CPPFLAGS += -march=pentium4
+CPPFLAGS += -march=native
 
 all:	aeolus aeolus_x11.so aeolus_txt.so
 
@@ -50,10 +50,9 @@ $(XIFACE_O):
 -include $(XIFACE_O:%.o=%.d)
 
 
-
 TIFACE_O =	tiface.o
 aeolus_txt.so:	CPPFLAGS += -fpic -D_REENTRANT
-aeolus_txt.so:	LDLIBS += -lclthreads
+aeolus_txt.so:	LDLIBS += -lclthreads -lreadline
 aeolus_txt.so:	LDFLAGS += -shared -L$(PREFIX)/$(LIBDIR)
 aeolus_txt.so: $(TIFACE_O)
 	g++ $(LDFLAGS) -o $@ $(TIFACE_O) $(LDLIBS)
@@ -62,24 +61,13 @@ $(TIFACE_O):
 -include $(TIFACE_O:%.o=%.d)
 
 
-
 install:	aeolus aeolus_x11.so aeolus_txt.so 
-	/usr/bin/install -d $(PREFIX)/$(LIBDIR)
-	/usr/bin/install -m 755 aeolus $(PREFIX)/bin
-	/usr/bin/install -m 755 aeolus_x11.so $(PREFIX)/$(LIBDIR)
-	/usr/bin/install -m 755 aeolus_txt.so $(PREFIX)/$(LIBDIR)
+	install -Dm 755 aeolus $(DESTDIR)$(PREFIX)/bin/aeolus
+	install -Dm 755 aeolus_x11.so $(DESTDIR)$(PREFIX)/$(LIBDIR)/aeolus_x11.so
+	install -Dm 755 aeolus_txt.so $(DESTDIR)$(PREFIX)/$(LIBDIR)/aeolus_txt.so
 	/sbin/ldconfig $(PREFIX)/$(LIBDIR)
+
 
 clean:
 	/bin/rm -f *~ *.o *.d *.a *.so aeolus
-
-
-tarball:
-	cd ..; \
-	/bin/rm -f -r $(DISTDIR)*; \
-	svn export aeolus $(DISTDIR); \
-	tar cvf $(DISTDIR).tar $(DISTDIR); \
-	bzip2 $(DISTDIR).tar; \
-	/bin/rm -f -r $(DISTDIR);
-
 

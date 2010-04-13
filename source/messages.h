@@ -193,7 +193,7 @@ public:
     {
         const char     *_label;
         const char     *_mnemo;
-    }                   _temped [8];     
+    }                   _temped [16];     
 };
 
 

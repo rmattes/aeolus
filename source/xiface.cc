@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2003-2008 Fons Adriaensen <fons@kokkinizita.net>
+    Copyright (C) 2003-2010 Fons Adriaensen <fons@kokkinizita.net>
     
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ extern "C" Iface *create_iface (int ac, char *av [])
 
 Xiface::Xiface (int ac, char *av [])
 {
-    _xresm.init (&ac, av, "aeolus", 0, 0);
+    _xresm.init (&ac, av, (char *)"aeolus", 0, 0);
     _disp = new X_display (_xresm.get (".display", 0));
     if (_disp->dpy () == 0)
     {
