@@ -1,3 +1,10 @@
+aeolus (0.8.2-3) unstable; urgency=low
+
+  * Create /usr/bin destination path before calling 'make install'.
+  * Bump Standards.
+
+ -- Alessio Treglia <quadrispro@ubuntu.com>  Tue, 13 Apr 2010 17:52:18 +0200
+
 aeolus (0.8.2-2) unstable; urgency=low
 
   * debian/control:
