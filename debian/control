@@ -5,14 +5,14 @@ Maintainer: Debian Multimedia Maintainers <pkg-multimedia-maintainers@lists.alio
 Uploaders: Free Ekanayaka <freee@debian.org>,
  Alessio Treglia <quadrispro@ubuntu.com>
 DM-Upload-Allowed: yes
-Build-Depends: cdbs,
- debhelper (>= 5),
+Build-Depends: debhelper (>= 7.0.50~),
  libasound2-dev [!kfreebsd-i386 !kfreebsd-amd64 !hurd-i386],
  libjack-dev,
  libclthreads-dev,
  libclxclient-dev (>= 3.3.1),
  libclalsadrv-dev,
- libreadline5-dev
+ libreadline5-dev,
+ quilt (>= 0.46-7~)
 Standards-Version: 3.8.4
 Vcs-Git: git://git.debian.org/pkg-multimedia/aeolus.git
 Vcs-Browser: http://git.debian.org/?p=pkg-multimedia/aeolus.git;a=summary

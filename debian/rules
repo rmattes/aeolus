@@ -1,15 +1,15 @@
 #!/usr/bin/make -f
 
-include /usr/share/cdbs/1/rules/simple-patchsys.mk
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/makefile.mk
+%:
+	dh --with quilt $@
 
-# Add here any variable or target overrides you need.
-DEB_MAKE_ENVVARS = CFLAGS="-Wall -I. -I/usr/X11R6/include -I/usr/include/freetype2 -fpic -D_REENTRANT -D_POSIX_PTHREAD_SEMANTICS -O2"
-DEB_MAKE_INVOKE = $(DEB_MAKE_ENVVARS) make
-DEB_MAKE_INSTALL_TARGET = install DESTDIR=$(CURDIR)/debian/aeolus/
-
-install/aeolus::
+override_dh_auto_configure:
+override_dh_auto_clean:
+	cd source && $(MAKE) clean
+override_dh_auto_build:
+	cd source && $(MAKE)
+override_dh_auto_install:
+	cd source && $(MAKE) install DESTDIR=$(CURDIR)/debian/aeolus/
 	mkdir -p $(CURDIR)/debian/aeolus/etc
 	mkdir -p $(CURDIR)/debian/aeolus/usr/share/applications
 	cp debian/aeolus.conf $(CURDIR)/debian/aeolus/etc
