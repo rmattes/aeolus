@@ -7,7 +7,7 @@ Uploaders: Free Ekanayaka <freee@debian.org>,
 DM-Upload-Allowed: yes
 Build-Depends: cdbs,
  debhelper (>= 5),
- libasound2-dev,
+ libasound2-dev [!kfreebsd-i386 !kfreebsd-amd64 !hurd-i386],
  libjack-dev,
  libclthreads-dev,
  libclxclient-dev (>= 3.3.1),
