@@ -43,7 +43,7 @@ public:
 #ifdef __linux__
     void  init_alsa (const char *device, int fsamp, int fsize, int nfrag);
 #endif
-    void  init_jack (bool bform, Lfq_u8 *qmidi);
+    void  init_jack (const char *server, bool bform, Lfq_u8 *qmidi);
     void  start (void);
 
     const char  *appname (void) const { return _appname; }

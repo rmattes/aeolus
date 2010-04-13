@@ -1,3 +1,13 @@
+AEOLUS 0.8.4   RELEASE NOTES   14/03/2010
+============================
+
+* Five new temperaments provided by Hanno Hoffstadt
+  and Adam Sampson.
+* Added -s option to select Jack server.
+* Now using libclalsdrv-2.0.0.
+* Compiles without warnings with gcc-4.4.3.
+
+
 AEOLUS 0.8.0   RELEASE NOTES   29/01/2008
 ============================
 

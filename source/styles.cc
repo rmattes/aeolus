@@ -85,12 +85,12 @@ void init_styles (X_display *disp, X_resman *xrm)
     Colors.midi_co2 = disp->alloc_color (xrm->get (".color.midi.c02", "green"),   Colors.white);
     Colors.midi_co3 = disp->alloc_color (xrm->get (".color.midi.c03", "coral"),   Colors.white);
 
-    XftFonts.spla1  = disp->alloc_xftfont (xrm->get (".font.spla1",  "times:pixelsize=24"));
-    XftFonts.spla2  = disp->alloc_xftfont (xrm->get (".font.spla2",  "times:pixelsize=15"));
-    XftFonts.main   = disp->alloc_xftfont (xrm->get (".font.main",   "suse sans,luxi:pixelsize=12"));  
+    XftFonts.spla1  = disp->alloc_xftfont (xrm->get (".font.spla1",  "times:bold:pixelsize=24"));
+    XftFonts.spla2  = disp->alloc_xftfont (xrm->get (".font.spla2",  "times:bold:pixelsize=16"));
+    XftFonts.main   = disp->alloc_xftfont (xrm->get (".font.main",   "luxi:pixelsize=12"));  
     XftFonts.large  = disp->alloc_xftfont (xrm->get (".font.large",  "times:bold:pixelsize=18"));
     XftFonts.stops  = disp->alloc_xftfont (xrm->get (".font.stops",  "times:bold:pixelsize=14"));
-    XftFonts.button = disp->alloc_xftfont (xrm->get (".font.button", "suse sans,luxi:pixelsize=12"));
+    XftFonts.button = disp->alloc_xftfont (xrm->get (".font.button", "luxi:pixelsize=12"));
     XftFonts.scales = disp->alloc_xftfont (xrm->get (".font.scales", "luxi:pixelsize=9"));
     XftFonts.midimt = disp->alloc_xftfont (xrm->get (".font.midimt", "luxi:bold:pixelsize=9"));
 

@@ -341,14 +341,23 @@ void Pipewave::attgain (int n, float p)
 void Pipewave::save (FILE *F)
 {
     int  k;
-    char d [32];
- 
-    *((int32_t *)(d +  0)) = _l0;
-    *((int32_t *)(d +  4)) = _l1;
-    *((int16_t *)(d +  8)) = _k_s;
-    *((int16_t *)(d + 10)) = _k_r;
-    *((float   *)(d + 12)) = _m_r;
-    fwrite (d, 1, 32, F);
+    union
+    {
+        int16_t i16 [16];
+        int32_t i32 [8];
+	float   flt [8];
+    } d;
+
+    d.i32 [0] = _l0;
+    d.i32 [1] = _l1;
+    d.i16 [4] = _k_s;
+    d.i16 [5] = _k_r;
+    d.flt [3] = _m_r;
+    d.i32 [4] = 0;
+    d.i32 [5] = 0;
+    d.i32 [6] = 0;
+    d.i32 [7] = 0;
+    fwrite (&d, 1, 32, F);
     k = _l0 +_l1 + _k_s * (PERIOD + 4);
     fwrite (_p0, k, sizeof (float), F);   
 }
@@ -357,14 +366,19 @@ void Pipewave::save (FILE *F)
 void Pipewave::load (FILE *F)
 {
     int  k;
-    char d [32];
- 
-    fread (d, 1, 32, F);
-    _l0  = *((int32_t *)(d +  0));
-    _l1  = *((int32_t *)(d +  4));
-    _k_s = *((int16_t *)(d +  8));
-    _k_r = *((int16_t *)(d + 10));
-    _m_r = *((float   *)(d + 12));
+    union
+    {
+        int16_t i16 [16];
+        int32_t i32 [8];
+	float   flt [8];
+    } d;
+
+    fread (&d, 1, 32, F);
+    _l0  = d.i32 [0];
+    _l1  = d.i32 [1];
+    _k_s = d.i16 [4];
+    _k_r = d.i16 [5];
+    _m_r = d.flt [3];
     k = _l0 +_l1 + _k_s * (PERIOD + 4);
     delete[] _p0;
     _p0 = new float [k];

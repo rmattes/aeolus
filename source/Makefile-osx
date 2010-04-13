@@ -1,4 +1,4 @@
-#  Copyright (C) 2003-2008 Fons Adriaensen <fons@kokkinizita.net>
+#  Copyright (C) 2003-2010 Fons Adriaensen <fons@kokkinizita.net>
 #  Copyright (C) 2008 Hans Fugal <hans@fugal.net>
 #
 #  This program is free software; you can redistribute it and/or modify
@@ -10,19 +10,19 @@
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
 PREFIX = /usr/local
-SUFFIX := $(shell uname -m | sed -e 's/^unknown/$//' -e 's/^i.86/$//' -e 's/^x86_64/$/64/')
+SUFFIX := $(shell uname -p | sed -e 's/^unknown/$//' -e 's/^i.86/$//' -e 's/^x86_64/$/64/')
 LIBDIR = lib$(SUFFIX)
-VERSION = 0.8.2
+VERSION = 0.8.4
 DISTDIR = aeolus-$(VERSION)
 CPPFLAGS += -O3 -Wall -MMD -MP -DVERSION=\"$(VERSION)\" -DLIBDIR=\"$(PREFIX)/$(LIBDIR)\"
-#CPPFLAGS += -march=pentium4
+CPPFLAGS += -march=native
 
 all:	aeolus aeolus_x11.so aeolus_txt.so
 

@@ -1,11 +1,11 @@
-AEOLUS 0.8.2  BUILD INSTRUCTIONS (LINUX)
+AEOLUS 0.8.4  BUILD INSTRUCTIONS (LINUX)
 _______________________________________
 
 
 To build this version, you need to have the shared
 libraries
 
-*  libclalsadrv.so.1.2.2
+*  libclalsadrv.so.2.0.0
 *  libclthreads.so.2.4.0
 *  libclxclient.so.3.6.0
 
@@ -44,7 +44,7 @@ problems (and solutions) to <fons@kokkinizita.net>.
 See also the README file for run-time configuration.
 
 
-AEOLUS 0.8.2  BUILD INSTRUCTIONS (OSX)
+AEOLUS 0.8.4  BUILD INSTRUCTIONS (OSX)
 _____________________________________
 
 

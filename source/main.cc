@@ -34,9 +34,9 @@
 
 
 #ifdef __linux__
-static char *options = "htuAJBM:N:S:I:W:d:r:p:n:";
+static const char *options = "htuAJBM:N:S:I:W:d:r:p:n:s:";
 #else
-static char *options = "htuJBM:N:S:I:W:";
+static const char *options = "htuJBM:N:S:I:W:s:";
 #endif
 static char  optline [1024];
 static bool  t_opt = false;
@@ -51,6 +51,7 @@ static const char *S_val = "stops";
 static const char *I_val = "Aeolus";
 static const char *W_val = "waves";
 static const char *d_val = "default";
+static const char *s_val = 0;
 static Lfq_u32  note_queue (256);
 static Lfq_u32  comm_queue (256);
 static Lfq_u8   midi_queue (1024);
@@ -73,8 +74,9 @@ static void help (void)
     fprintf (stderr, "  -S <stops>         Name of stops directory [stops]\n");   
     fprintf (stderr, "  -I <instr>         Name of instrument directory [Aeolus]\n");   
     fprintf (stderr, "  -W <waves>         Name of waves directory [waves]\n");   
-    fprintf (stderr, "  -B                 Ambisonics B format output (JACK only)\n");
-    fprintf (stderr, "  -J                 Use JACK (default)\n");
+    fprintf (stderr, "  -J                 Use JACK (default), with options:\n");
+    fprintf (stderr, "    -s               Select JACK server\n");
+    fprintf (stderr, "    -B               Ambisonics B format output\n");
 #ifdef __linux__
     fprintf (stderr, "  -A                 Use ALSA, with options:\n");
     fprintf (stderr, "    -d <device>        Alsa device [default]\n");
@@ -117,6 +119,7 @@ static void procoptions (int ac, char *av [], const char *where)
         case 'I' : I_val = optarg; break; 
         case 'W' : W_val = optarg; break; 
         case 'd' : d_val = optarg; break; 
+	case 's' : s_val = optarg; break;
         case '?':
             fprintf (stderr, "\n%s\n", where);
             if (optopt != ':' && strchr (options, optopt)) fprintf (stderr, "  Missing argument for '-%c' option.\n", optopt); 
@@ -209,9 +212,9 @@ int main (int ac, char *av [])
     audio = new Audio (N_val, &note_queue, &comm_queue);
 #ifdef __linux__
     if (A_opt) audio->init_alsa (d_val, r_val, p_val, n_val);
-    else       audio->init_jack (B_opt, &midi_queue);
+    else       audio->init_jack (s_val, B_opt, &midi_queue);
 #else
-    audio->init_jack (B_opt, &midi_queue);
+    audio->init_jack (s_val, B_opt, &midi_queue);
 #endif
     model = new Model (&comm_queue, &midi_queue, audio->midimap (), audio->appname (), S_val, I_val, W_val, u_opt);
     imidi = new Imidi (&note_queue, &midi_queue, audio->midimap (), audio->appname ());

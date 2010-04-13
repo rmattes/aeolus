@@ -198,8 +198,8 @@ void Imidi::coremidi_proc(const MIDIPacketList *pktlist, void *refCon, void *con
                 break;
 
             case 0xB0:
-                p = E[0];
-                v = E[1];
+                p = E[1];
+                v = E[2];
                 switch (p)
                 {
                 case MIDICTL_HOLD:

@@ -112,7 +112,7 @@ void Audio::start (void)
 #ifdef __linux__
 void Audio::init_alsa (const char *device, int fsamp, int fsize, int nfrag)
 {
-    _alsa_handle = new Alsa_driver (device, fsamp, fsize, nfrag, true, false, false);
+    _alsa_handle = new Alsa_driver (device, 0, 0, fsamp, fsize, nfrag);
     if (_alsa_handle->stat () < 0)
     {
         fprintf (stderr, "Error: can't connect to ALSA.\n");
@@ -141,8 +141,7 @@ void Audio::init_alsa (const char *device, int fsamp, int fsize, int nfrag)
 #ifdef __linux__
 void Audio::close_alsa ()
 {
-    _running = false;	
-    fprintf (stderr, "Closing ALSA.\n");
+    _running = false;
     get_event (1 << EV_EXIT);
     for (int i = 0; i < _nplay; i++) delete[] _outbuf [i];
     delete _alsa_handle;
@@ -181,9 +180,10 @@ void Audio::thr_main (void)
 }
 
 
-void Audio::init_jack (bool bform, Lfq_u8 *qmidi)
+void Audio::init_jack (const char *server, bool bform, Lfq_u8 *qmidi)
 {
     int                 i;
+    int                 opts;
     jack_status_t       stat;
     struct sched_param  spar;
     const char          **p;
@@ -191,7 +191,10 @@ void Audio::init_jack (bool bform, Lfq_u8 *qmidi)
     _bform = bform;
     _qmidi = qmidi;
 
-    if ((_jack_handle = jack_client_open (_appname, (jack_options_t) 0, &stat)) == 0)
+    opts = JackNoStartServer;
+    if (server) opts |= JackServerName;
+    _jack_handle = jack_client_open (_appname, (jack_options_t) opts, &stat, server);
+    if (!_jack_handle)
     {
         fprintf (stderr, "Error: can't connect to JACK\n");
         exit (1);
