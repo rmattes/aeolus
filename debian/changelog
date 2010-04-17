@@ -1,3 +1,13 @@
+aeolus (0.8.4-1) unstable; urgency=low
+
+  * Disable libasound2-dev as build-dep for kfreebsd-*,hurd-i386
+    architectures.
+  * Imported Upstream version 0.8.4
+  * Switch to debhelper 7 + quilt.
+  * New makefile patch: WIP.
+
+ -- Alessio Treglia <quadrispro@ubuntu.com>  Sat, 17 Apr 2010 20:21:09 +0200
+
 aeolus (0.8.2-3) unstable; urgency=low
 
   * Create /usr/bin destination path before calling 'make install'.
