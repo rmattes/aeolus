@@ -7,6 +7,7 @@ aeolus (0.8.4-1) unstable; urgency=low
   * Rename old debian/patches/makefile.patch to 01-makefile.patch:
     - Append a SONAME to aeolus_{txt,x11}.so libraries.
   * Add README.source file to document the usage of quilt.
+  * Install README file as upstream's changelog.
 
  -- Alessio Treglia <quadrispro@ubuntu.com>  Sat, 17 Apr 2010 20:51:51 +0200
 
