@@ -8,7 +8,7 @@ aeolus (0.8.4-1) unstable; urgency=low
     - Append a SONAME to aeolus_{txt,x11}.so libraries.
   * Add README.source file to document the usage of quilt.
 
- -- Alessio Treglia <quadrispro@ubuntu.com>  Sat, 17 Apr 2010 20:21:09 +0200
+ -- Alessio Treglia <quadrispro@ubuntu.com>  Sat, 17 Apr 2010 20:51:51 +0200
 
 aeolus (0.8.2-3) unstable; urgency=low
 
