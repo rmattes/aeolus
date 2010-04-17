@@ -1,6 +1,6 @@
 ---
- source/Makefile |   26 +++++++++++++++++---------
- 1 file changed, 17 insertions(+), 9 deletions(-)
+ source/Makefile |   24 ++++++++++++++++--------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
 
 --- aeolus.orig/source/Makefile
 +++ aeolus/source/Makefile
@@ -23,15 +23,6 @@
  
  all:	aeolus aeolus_x11.so aeolus_txt.so
  
-@@ -31,7 +34,7 @@ AEOLUS_O =	main.o audio.o model.o slave.
- aeolus:	LDLIBS += -lclalsadrv -lclthreads -lpthread -ljack -lasound -lpthread -lrt
- aeolus: LDFLAGS += -L$(PREFIX)/$(LIBDIR)
- aeolus:	$(AEOLUS_O)
--	g++ $(LDFLAGS) -o $@ $(AEOLUS_O) $(LDLIBS)
-+	g++ $(LDFLAGS) -Wl,-soname=$(@).$(MAJ) -o $(@).$(MAJ).$(REL) $(AEOLUS_O) $(LDLIBS)
- 
- addsynth.o:	CPPFLAGS += -fpic -D_REENTRANT
- $(AEOLUS_O):
 @@ -44,7 +47,9 @@ aeolus_x11.so:	CPPFLAGS += -fpic -D_REEN
  aeolus_x11.so:	LDLIBS += -lclthreads -lclxclient -lXft -lX11
  aeolus_x11.so:	LDFLAGS += -shared -L$(PREFIX)/$(LIBDIR) -L/usr/X11R6/$(LIBDIR)
