@@ -1,6 +1,8 @@
+Author: Alessio Treglia <quadrispro@ubuntu.com>
+Description: Add DESTDIR, adjust PREFIX and append SONAME to the libraries.
 ---
- source/Makefile |   24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+ source/Makefile |   22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
 --- aeolus.orig/source/Makefile
 +++ aeolus/source/Makefile
@@ -23,25 +25,21 @@
  
  all:	aeolus aeolus_x11.so aeolus_txt.so
  
-@@ -44,7 +47,9 @@ aeolus_x11.so:	CPPFLAGS += -fpic -D_REEN
+@@ -44,7 +47,7 @@ aeolus_x11.so:	CPPFLAGS += -fpic -D_REEN
  aeolus_x11.so:	LDLIBS += -lclthreads -lclxclient -lXft -lX11
  aeolus_x11.so:	LDFLAGS += -shared -L$(PREFIX)/$(LIBDIR) -L/usr/X11R6/$(LIBDIR)
  aeolus_x11.so: $(XIFACE_O) $(LIBCLX)
 -	g++ $(LDFLAGS) -o $@ $(XIFACE_O) $(LDLIBS)
 +	g++ $(LDFLAGS) -Wl,-soname=$(@).$(MAJ) -o $(@).$(MAJ).$(REL) $(XIFACE_O) $(LDLIBS)
-+	ln -s $(@).$(MAJ).$(REL) $(@).$(MAJ)
-+	ln -s $(@).$(MAJ).$(REL) $(@)
  
  $(XIFACE_O):
  -include $(XIFACE_O:%.o=%.d)
-@@ -55,17 +60,20 @@ aeolus_txt.so:	CPPFLAGS += -fpic -D_REEN
+@@ -55,17 +58,20 @@ aeolus_txt.so:	CPPFLAGS += -fpic -D_REEN
  aeolus_txt.so:	LDLIBS += -lclthreads -lreadline
  aeolus_txt.so:	LDFLAGS += -shared -L$(PREFIX)/$(LIBDIR)
  aeolus_txt.so: $(TIFACE_O)
 -	g++ $(LDFLAGS) -o $@ $(TIFACE_O) $(LDLIBS)
 +	g++ $(LDFLAGS) -Wl,-soname=$(@).$(MAJ) -o $(@).$(MAJ).$(REL) $(TIFACE_O) $(LDLIBS)
-+	ln -s $(@).$(MAJ).$(REL) $(@).$(MAJ)
-+	ln -s $(@).$(MAJ).$(REL) $(@)
  
  $(TIFACE_O):
  -include $(TIFACE_O:%.o=%.d)
@@ -56,7 +54,9 @@
 +	/usr/bin/install -d $(DESTDIR)$(PREFIX)/bin
 +	/usr/bin/install -m 755 aeolus $(DESTDIR)$(PREFIX)/bin
 +	/usr/bin/install -m 755 aeolus_x11.so.$(MAJ).$(REL) $(DESTDIR)$(PREFIX)/$(LIBDIR)
++	ln -s aeolus_x11.so.$(MAJ).$(REL) $(DESTDIR)$(PREFIX)/$(LIBDIR)/aeolus_x11.so.$(MAJ)
 +	/usr/bin/install -m 755 aeolus_txt.so.$(MAJ).$(REL) $(DESTDIR)$(PREFIX)/$(LIBDIR)
++	ln -s aeolus_txt.so.$(MAJ).$(REL) $(DESTDIR)$(PREFIX)/$(LIBDIR)/aeolus_txt.so.$(MAJ)
  
  
  clean:
