@@ -1,0 +1,71 @@
+---
+ source/Makefile |   26 +++++++++++++++++---------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
+
+--- aeolus.orig/source/Makefile
++++ aeolus/source/Makefile
+@@ -15,13 +15,16 @@
+ #  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ 
+ 
+-PREFIX = /usr/local
+-SUFFIX := $(shell uname -m | sed -e 's/^unknown/$//' -e 's/^i.86/$//' -e 's/^x86_64/$/64/')
++PREFIX = /usr
++#SUFFIX := $(shell uname -m | sed -e 's/^unknown/$//' -e 's/^i.86/$//' -e 's/^x86_64/$/64/')
++DESTDIR=
+ LIBDIR = lib$(SUFFIX)
+ VERSION = 0.8.4
+ DISTDIR = aeolus-$(VERSION)
+ CPPFLAGS += -O3 -Wall -MMD -MP -DVERSION=\"$(VERSION)\" -DLIBDIR=\"$(PREFIX)/$(LIBDIR)\"
+ CPPFLAGS += -march=native
++MAJ = 0
++REL = 0.0
+ 
+ all:	aeolus aeolus_x11.so aeolus_txt.so
+ 
+@@ -31,7 +34,7 @@ AEOLUS_O =	main.o audio.o model.o slave.
+ aeolus:	LDLIBS += -lclalsadrv -lclthreads -lpthread -ljack -lasound -lpthread -lrt
+ aeolus: LDFLAGS += -L$(PREFIX)/$(LIBDIR)
+ aeolus:	$(AEOLUS_O)
+-	g++ $(LDFLAGS) -o $@ $(AEOLUS_O) $(LDLIBS)
++	g++ $(LDFLAGS) -Wl,-soname=$(@).$(MAJ) -o $(@).$(MAJ).$(REL) $(AEOLUS_O) $(LDLIBS)
+ 
+ addsynth.o:	CPPFLAGS += -fpic -D_REENTRANT
+ $(AEOLUS_O):
+@@ -44,7 +47,9 @@ aeolus_x11.so:	CPPFLAGS += -fpic -D_REEN
+ aeolus_x11.so:	LDLIBS += -lclthreads -lclxclient -lXft -lX11
+ aeolus_x11.so:	LDFLAGS += -shared -L$(PREFIX)/$(LIBDIR) -L/usr/X11R6/$(LIBDIR)
+ aeolus_x11.so: $(XIFACE_O) $(LIBCLX)
+-	g++ $(LDFLAGS) -o $@ $(XIFACE_O) $(LDLIBS)
++	g++ $(LDFLAGS) -Wl,-soname=$(@).$(MAJ) -o $(@).$(MAJ).$(REL) $(XIFACE_O) $(LDLIBS)
++	ln -s $(@).$(MAJ).$(REL) $(@).$(MAJ)
++	ln -s $(@).$(MAJ).$(REL) $(@)
+ 
+ $(XIFACE_O):
+ -include $(XIFACE_O:%.o=%.d)
+@@ -55,17 +60,20 @@ aeolus_txt.so:	CPPFLAGS += -fpic -D_REEN
+ aeolus_txt.so:	LDLIBS += -lclthreads -lreadline
+ aeolus_txt.so:	LDFLAGS += -shared -L$(PREFIX)/$(LIBDIR)
+ aeolus_txt.so: $(TIFACE_O)
+-	g++ $(LDFLAGS) -o $@ $(TIFACE_O) $(LDLIBS)
++	g++ $(LDFLAGS) -Wl,-soname=$(@).$(MAJ) -o $(@).$(MAJ).$(REL) $(TIFACE_O) $(LDLIBS)
++	ln -s $(@).$(MAJ).$(REL) $(@).$(MAJ)
++	ln -s $(@).$(MAJ).$(REL) $(@)
+ 
+ $(TIFACE_O):
+ -include $(TIFACE_O:%.o=%.d)
+ 
+ 
+ install:	aeolus aeolus_x11.so aeolus_txt.so 
+-	install -Dm 755 aeolus $(DESTDIR)$(PREFIX)/bin/aeolus
+-	install -Dm 755 aeolus_x11.so $(DESTDIR)$(PREFIX)/$(LIBDIR)/aeolus_x11.so
+-	install -Dm 755 aeolus_txt.so $(DESTDIR)$(PREFIX)/$(LIBDIR)/aeolus_txt.so
+-	/sbin/ldconfig $(PREFIX)/$(LIBDIR)
++	/usr/bin/install -d $(DESTDIR)$(PREFIX)/$(LIBDIR)
++	/usr/bin/install -d $(DESTDIR)$(PREFIX)/bin
++	/usr/bin/install -m 755 aeolus $(DESTDIR)$(PREFIX)/bin
++	/usr/bin/install -m 755 aeolus_x11.so.$(MAJ).$(REL) $(DESTDIR)$(PREFIX)/$(LIBDIR)
++	/usr/bin/install -m 755 aeolus_txt.so.$(MAJ).$(REL) $(DESTDIR)$(PREFIX)/$(LIBDIR)
+ 
+ 
+ clean:
