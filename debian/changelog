@@ -1,3 +1,10 @@
+aeolus (0.8.4-2) unstable; urgency=low
+
+  * Adjust 01-makefile.patch to prevent FTBFS with binutils-gold
+    (Closes: #553630).
+
+ -- Alessio Treglia <quadrispro@ubuntu.com>  Sun, 18 Apr 2010 12:03:44 +0200
+
 aeolus (0.8.4-1) unstable; urgency=low
 
   * New upstream release.
