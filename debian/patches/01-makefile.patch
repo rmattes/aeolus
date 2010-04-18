@@ -1,12 +1,14 @@
 Author: Alessio Treglia <quadrispro@ubuntu.com>
 Description: Add DESTDIR, adjust PREFIX and append SONAME to the libraries.
+ Plus, fix FTBFS with binutils-gold.
+Bug: http://bugs.debian.org/553630
 ---
- source/Makefile |   22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ source/Makefile |   24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
 
 --- aeolus.orig/source/Makefile
 +++ aeolus/source/Makefile
-@@ -15,13 +15,16 @@
+@@ -15,20 +15,23 @@
  #  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  
  
@@ -25,6 +27,14 @@ Description: Add DESTDIR, adjust PREFIX and append SONAME to the libraries.
  
  all:	aeolus aeolus_x11.so aeolus_txt.so
  
+ 
+ AEOLUS_O =	main.o audio.o model.o slave.o imidi.o addsynth.o scales.o \
+ 		reverb.o asection.o division.o rankwave.o rngen.o exp2ap.o lfqueue.o
+-aeolus:	LDLIBS += -lclalsadrv -lclthreads -lpthread -ljack -lasound -lpthread -lrt
++aeolus:	LDLIBS += -lclalsadrv -lclthreads -lpthread -ljack -lasound -ldl -lrt
+ aeolus: LDFLAGS += -L$(PREFIX)/$(LIBDIR)
+ aeolus:	$(AEOLUS_O)
+ 	g++ $(LDFLAGS) -o $@ $(AEOLUS_O) $(LDLIBS)
 @@ -44,7 +47,7 @@ aeolus_x11.so:	CPPFLAGS += -fpic -D_REEN
  aeolus_x11.so:	LDLIBS += -lclthreads -lclxclient -lXft -lX11
  aeolus_x11.so:	LDFLAGS += -shared -L$(PREFIX)/$(LIBDIR) -L/usr/X11R6/$(LIBDIR)
