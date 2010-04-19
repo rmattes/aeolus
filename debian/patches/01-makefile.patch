@@ -1,10 +1,12 @@
 Author: Alessio Treglia <quadrispro@ubuntu.com>
 Description: Add DESTDIR, adjust PREFIX and append SONAME to the libraries.
  Plus, fix FTBFS with binutils-gold.
+ Disable -march-native to fix FTBFS.
 Bug: http://bugs.debian.org/553630
+Bug: http://bugs.debian.org/578278
 ---
- source/Makefile |   24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+ source/Makefile |   26 ++++++++++++++++----------
+ 1 file changed, 16 insertions(+), 10 deletions(-)
 
 --- aeolus.orig/source/Makefile
 +++ aeolus/source/Makefile
@@ -21,7 +23,8 @@ Bug: http://bugs.debian.org/553630
  VERSION = 0.8.4
  DISTDIR = aeolus-$(VERSION)
  CPPFLAGS += -O3 -Wall -MMD -MP -DVERSION=\"$(VERSION)\" -DLIBDIR=\"$(PREFIX)/$(LIBDIR)\"
- CPPFLAGS += -march=native
+-CPPFLAGS += -march=native
++#CPPFLAGS += -march=native
 +MAJ = 0
 +REL = 0.0
  
