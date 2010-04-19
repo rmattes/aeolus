@@ -1,3 +1,11 @@
+aeolus (0.8.4-3) unstable; urgency=low
+
+  * debian/patches/01-makefile.patch: Drop -march=native flag, it isn't valid
+    for Debian packages as the results are unpredictable, thanks to
+    Bastian Blank for reporting this (Closes: #578278).
+
+ -- Alessio Treglia <quadrispro@ubuntu.com>  Mon, 19 Apr 2010 19:12:51 +0200
+
 aeolus (0.8.4-2) unstable; urgency=low
 
   * Adjust 01-makefile.patch to prevent FTBFS with binutils-gold
