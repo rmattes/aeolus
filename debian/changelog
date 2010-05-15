@@ -1,3 +1,9 @@
+aeolus (0.8.4-4) unstable; urgency=medium
+
+  * Plugins have been renamed, fix the search patch (Closes: #581714)
+
+ -- Alessio Treglia <quadrispro@ubuntu.com>  Sat, 15 May 2010 12:16:20 +0200
+
 aeolus (0.8.4-3) unstable; urgency=low
 
   * debian/patches/01-makefile.patch: Drop -march=native flag, it isn't valid
