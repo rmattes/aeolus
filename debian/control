@@ -3,8 +3,7 @@ Section: sound
 Priority: extra
 Maintainer: Debian Multimedia Maintainers <pkg-multimedia-maintainers@lists.alioth.debian.org>
 Uploaders: Free Ekanayaka <freee@debian.org>,
- Alessio Treglia <quadrispro@ubuntu.com>
-DM-Upload-Allowed: yes
+ Alessio Treglia <alessio@debian.org>
 Build-Depends: debhelper (>= 7.0.50~),
  libasound2-dev [!kfreebsd-i386 !kfreebsd-amd64 !hurd-i386],
  libjack-dev,
