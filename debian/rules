@@ -5,11 +5,5 @@ export DESTDIR=$(CURDIR)/debian/aeolus
 %:
 	dh $@ -Smakefile -Dsource
 
-override_dh_auto_install:
-	dh_auto_install
-	mkdir -p $(CURDIR)/debian/aeolus/etc
-	mkdir -p $(CURDIR)/debian/aeolus/usr/share/applications
-	cp debian/aeolus.conf $(CURDIR)/debian/aeolus/etc
-	cp debian/aeolus.desktop $(CURDIR)/debian/aeolus/usr/share/applications
 override_dh_installchangelogs:
 	dh_installchangelogs README
