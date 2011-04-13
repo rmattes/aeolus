@@ -1,33 +1,32 @@
 Author: Alessio Treglia <quadrispro@ubuntu.com>
-Description: Add DESTDIR, adjust PREFIX and append SONAME to the libraries.
+Description: Add DESTDIR and adjust PREFIX envvars.
  Plus, fix FTBFS with binutils-gold.
  Disable -march-native to fix FTBFS.
  Add -pthread to the linking flags.
+ Install aeolus_*.so binaries into /usr/lib/aeolus since they are provided
+ for internal use only; inform aeolus about this change by passing the
+ proper value of the path from which it'll load the private libs.
 Bug: http://bugs.debian.org/553630
 Bug: http://bugs.debian.org/578278
 ---
- source/Makefile |   30 ++++++++++++++++++------------
- 1 file changed, 18 insertions(+), 12 deletions(-)
+ source/Makefile |   23 +++++++++++------------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
 
 --- aeolus.orig/source/Makefile
 +++ aeolus/source/Makefile
-@@ -15,20 +15,23 @@
+@@ -15,20 +15,18 @@
  #  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  
  
 -PREFIX = /usr/local
 -SUFFIX := $(shell uname -m | sed -e 's/^unknown/$//' -e 's/^i.86/$//' -e 's/^x86_64/$/64/')
 +PREFIX = /usr
-+#SUFFIX := $(shell uname -m | sed -e 's/^unknown/$//' -e 's/^i.86/$//' -e 's/^x86_64/$/64/')
-+DESTDIR=
  LIBDIR = lib$(SUFFIX)
  VERSION = 0.8.4
  DISTDIR = aeolus-$(VERSION)
- CPPFLAGS += -O3 -Wall -MMD -MP -DVERSION=\"$(VERSION)\" -DLIBDIR=\"$(PREFIX)/$(LIBDIR)\"
+-CPPFLAGS += -O3 -Wall -MMD -MP -DVERSION=\"$(VERSION)\" -DLIBDIR=\"$(PREFIX)/$(LIBDIR)\"
 -CPPFLAGS += -march=native
-+#CPPFLAGS += -march=native
-+MAJ = 0
-+REL = 0.0
++CPPFLAGS += -O3 -Wall -MMD -MP -DVERSION=\"$(VERSION)\" -DLIBDIR=\"$(PREFIX)/$(LIBDIR)/aeolus\"
  
  all:	aeolus aeolus_x11.so aeolus_txt.so
  
@@ -39,7 +38,7 @@ Bug: http://bugs.debian.org/578278
  aeolus: LDFLAGS += -L$(PREFIX)/$(LIBDIR)
  aeolus:	$(AEOLUS_O)
  	g++ $(LDFLAGS) -o $@ $(AEOLUS_O) $(LDLIBS)
-@@ -41,10 +44,10 @@ $(AEOLUS_O):
+@@ -41,7 +39,7 @@ $(AEOLUS_O):
  XIFACE_O =	styles.o mainwin.o midiwin.o audiowin.o instrwin.o editwin.o midimatrix.o \
  		multislider.o functionwin.o xiface.o addsynth.o
  aeolus_x11.so:	CPPFLAGS += -fpic -D_REENTRANT -I/usr/X11R6/include -I/usr/include/freetype2
@@ -47,12 +46,8 @@ Bug: http://bugs.debian.org/578278
 +aeolus_x11.so:	LDLIBS += -pthread -lclthreads -lclxclient -lXft -lX11
  aeolus_x11.so:	LDFLAGS += -shared -L$(PREFIX)/$(LIBDIR) -L/usr/X11R6/$(LIBDIR)
  aeolus_x11.so: $(XIFACE_O) $(LIBCLX)
--	g++ $(LDFLAGS) -o $@ $(XIFACE_O) $(LDLIBS)
-+	g++ $(LDFLAGS) -Wl,-soname=$(@).$(MAJ) -o $(@).$(MAJ).$(REL) $(XIFACE_O) $(LDLIBS)
- 
- $(XIFACE_O):
- -include $(XIFACE_O:%.o=%.d)
-@@ -52,20 +55,23 @@ $(XIFACE_O):
+ 	g++ $(LDFLAGS) -o $@ $(XIFACE_O) $(LDLIBS)
+@@ -52,20 +50,21 @@ $(XIFACE_O):
  
  TIFACE_O =	tiface.o
  aeolus_txt.so:	CPPFLAGS += -fpic -D_REENTRANT
@@ -61,7 +56,7 @@ Bug: http://bugs.debian.org/578278
  aeolus_txt.so:	LDFLAGS += -shared -L$(PREFIX)/$(LIBDIR)
  aeolus_txt.so: $(TIFACE_O)
 -	g++ $(LDFLAGS) -o $@ $(TIFACE_O) $(LDLIBS)
-+	g++ $(LDFLAGS) -Wl,-soname=$(@).$(MAJ) -o $(@).$(MAJ).$(REL) $(TIFACE_O) $(LDLIBS)
++	g++ $(LDFLAGS) -o $(@) $(TIFACE_O) $(LDLIBS)
  
  $(TIFACE_O):
  -include $(TIFACE_O:%.o=%.d)
@@ -72,13 +67,11 @@ Bug: http://bugs.debian.org/578278
 -	install -Dm 755 aeolus_x11.so $(DESTDIR)$(PREFIX)/$(LIBDIR)/aeolus_x11.so
 -	install -Dm 755 aeolus_txt.so $(DESTDIR)$(PREFIX)/$(LIBDIR)/aeolus_txt.so
 -	/sbin/ldconfig $(PREFIX)/$(LIBDIR)
-+	/usr/bin/install -d $(DESTDIR)$(PREFIX)/$(LIBDIR)
++	/usr/bin/install -d $(DESTDIR)$(PREFIX)/$(LIBDIR)/aeolus
 +	/usr/bin/install -d $(DESTDIR)$(PREFIX)/bin
 +	/usr/bin/install -m 755 aeolus $(DESTDIR)$(PREFIX)/bin
-+	/usr/bin/install -m 755 aeolus_x11.so.$(MAJ).$(REL) $(DESTDIR)$(PREFIX)/$(LIBDIR)
-+	ln -s aeolus_x11.so.$(MAJ).$(REL) $(DESTDIR)$(PREFIX)/$(LIBDIR)/aeolus_x11.so.$(MAJ)
-+	/usr/bin/install -m 755 aeolus_txt.so.$(MAJ).$(REL) $(DESTDIR)$(PREFIX)/$(LIBDIR)
-+	ln -s aeolus_txt.so.$(MAJ).$(REL) $(DESTDIR)$(PREFIX)/$(LIBDIR)/aeolus_txt.so.$(MAJ)
++	/usr/bin/install -m 755 aeolus_x11.so $(DESTDIR)$(PREFIX)/$(LIBDIR)/aeolus
++	/usr/bin/install -m 755 aeolus_txt.so $(DESTDIR)$(PREFIX)/$(LIBDIR)/aeolus
  
  
  clean:
