@@ -1,8 +1,26 @@
 aeolus (0.8.4-5) unstable; urgency=low
 
-  * Start new upload.
+  * debian/patches/01-makefile.patch:
+    - Add -pthread flag.
+    - Install aeolus_*.so into /usr/lib/aeolus, they are provided for
+      internal use only.
+  * Switch packaging to 3.0 (quilt) format.
+  * Drop unneeded 02-rename_plugin_shlibs.patch:
+  * Change my email address, remove DMUA field.
+  * Add git-buildpackage config file.
+  * Add manpage and install it.
+  * Reintroduce build-dependency on libasound2-dev to hurd and kfreebsd-*.
+  * Introduce -S,-D options to shorten debian/rules file.
+  * Recommends jackd.
+  * Update Homepage.
+  * Fix debian/watch file.
+  * Adjust dh_install,dh_installdirs control files, shorten debian/rules.
+  * Update debian/copyright file.
+  * Remove debian/docs, AUTHORS file is unnecessary since debian/copyright
+    contains all the needed information.
+  * Bump Standards.
 
- -- Alessio Treglia <alessio@debian.org>  Wed, 13 Apr 2011 17:14:08 +0200
+ -- Alessio Treglia <alessio@debian.org>  Wed, 13 Apr 2011 18:34:14 +0200
 
 aeolus (0.8.4-4) unstable; urgency=medium
 
