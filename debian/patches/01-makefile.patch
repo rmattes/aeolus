@@ -5,8 +5,8 @@ Description: Add DESTDIR, adjust PREFIX and append SONAME to the libraries.
 Bug: http://bugs.debian.org/553630
 Bug: http://bugs.debian.org/578278
 ---
- source/Makefile |   26 ++++++++++++++++----------
- 1 file changed, 16 insertions(+), 10 deletions(-)
+ source/Makefile |   30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
 --- aeolus.orig/source/Makefile
 +++ aeolus/source/Makefile
@@ -38,8 +38,12 @@ Bug: http://bugs.debian.org/578278
  aeolus: LDFLAGS += -L$(PREFIX)/$(LIBDIR)
  aeolus:	$(AEOLUS_O)
  	g++ $(LDFLAGS) -o $@ $(AEOLUS_O) $(LDLIBS)
-@@ -44,7 +47,7 @@ aeolus_x11.so:	CPPFLAGS += -fpic -D_REEN
- aeolus_x11.so:	LDLIBS += -lclthreads -lclxclient -lXft -lX11
+@@ -41,10 +44,10 @@ $(AEOLUS_O):
+ XIFACE_O =	styles.o mainwin.o midiwin.o audiowin.o instrwin.o editwin.o midimatrix.o \
+ 		multislider.o functionwin.o xiface.o addsynth.o
+ aeolus_x11.so:	CPPFLAGS += -fpic -D_REENTRANT -I/usr/X11R6/include -I/usr/include/freetype2
+-aeolus_x11.so:	LDLIBS += -lclthreads -lclxclient -lXft -lX11
++aeolus_x11.so:	LDLIBS += -pthread -lclthreads -lclxclient -lXft -lX11
  aeolus_x11.so:	LDFLAGS += -shared -L$(PREFIX)/$(LIBDIR) -L/usr/X11R6/$(LIBDIR)
  aeolus_x11.so: $(XIFACE_O) $(LIBCLX)
 -	g++ $(LDFLAGS) -o $@ $(XIFACE_O) $(LDLIBS)
@@ -47,8 +51,12 @@ Bug: http://bugs.debian.org/578278
  
  $(XIFACE_O):
  -include $(XIFACE_O:%.o=%.d)
-@@ -55,17 +58,20 @@ aeolus_txt.so:	CPPFLAGS += -fpic -D_REEN
- aeolus_txt.so:	LDLIBS += -lclthreads -lreadline
+@@ -52,20 +55,23 @@ $(XIFACE_O):
+ 
+ TIFACE_O =	tiface.o
+ aeolus_txt.so:	CPPFLAGS += -fpic -D_REENTRANT
+-aeolus_txt.so:	LDLIBS += -lclthreads -lreadline
++aeolus_txt.so:	LDLIBS += -pthread -lclthreads -lreadline
  aeolus_txt.so:	LDFLAGS += -shared -L$(PREFIX)/$(LIBDIR)
  aeolus_txt.so: $(TIFACE_O)
 -	g++ $(LDFLAGS) -o $@ $(TIFACE_O) $(LDLIBS)
