@@ -5,7 +5,7 @@ Maintainer: Debian Multimedia Maintainers <pkg-multimedia-maintainers@lists.alio
 Uploaders: Free Ekanayaka <freee@debian.org>,
  Alessio Treglia <alessio@debian.org>
 Build-Depends: debhelper (>= 7.0.50~),
- libasound2-dev [!kfreebsd-i386 !kfreebsd-amd64 !hurd-i386],
+ libasound2-dev,
  libjack-dev,
  libclthreads-dev,
  libclxclient-dev (>= 3.3.1),
