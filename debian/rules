@@ -4,6 +4,3 @@ export DESTDIR=$(CURDIR)/debian/aeolus
 
 %:
 	dh $@ -Smakefile -Dsource
-
-override_dh_installchangelogs:
-	dh_installchangelogs README
