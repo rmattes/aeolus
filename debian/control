@@ -18,7 +18,10 @@ Homepage: http://www.kokkinizita.net/linuxaudio/index.html
 
 Package: aeolus
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, stops
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ stops
+Recommends: jackd
 Description: Synthesised pipe organ emulator
  Aeolus is a synthesised (i.e. not sampled) pipe organ emulator that
  should be good enough to make an organist enjoy playing it. It is a
