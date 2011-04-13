@@ -2,6 +2,7 @@ Author: Alessio Treglia <quadrispro@ubuntu.com>
 Description: Add DESTDIR, adjust PREFIX and append SONAME to the libraries.
  Plus, fix FTBFS with binutils-gold.
  Disable -march-native to fix FTBFS.
+ Add -pthread to the linking flags.
 Bug: http://bugs.debian.org/553630
 Bug: http://bugs.debian.org/578278
 ---
