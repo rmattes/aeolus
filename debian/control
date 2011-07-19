@@ -10,7 +10,7 @@ Build-Depends: debhelper (>= 7.0.50~),
  libclthreads-dev,
  libclxclient-dev (>= 3.3.1),
  libclalsadrv-dev,
- libreadline5-dev
+ libreadline-dev
 Standards-Version: 3.9.2
 Vcs-Git: git://git.debian.org/pkg-multimedia/aeolus.git
 Vcs-Browser: http://git.debian.org/?p=pkg-multimedia/aeolus.git
