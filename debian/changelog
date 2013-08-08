@@ -1,3 +1,16 @@
+aeolus (0.9.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Refresh patches.
+  * Replace libclalsadrv-dev with libzita-alsa-pcmi.
+  * Bump debhelper compatibility.
+  * Bump libclxclient-dev dependency.
+  * Update debian/copyright.
+  * Update Vcs-* tags.
+  * Bump Standards.
+
+ -- Alessio Treglia <alessio@debian.org>  Thu, 08 Aug 2013 10:00:11 +0100
+
 aeolus (0.8.4-6) unstable; urgency=medium
 
   * Replace libreadline5-dev with libreadline-dev (Closes: #634446)
