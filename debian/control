@@ -14,8 +14,8 @@ Build-Depends:
  libreadline-dev,
  libzita-alsa-pcmi
 Standards-Version: 3.9.2
-Vcs-Git: git://git.debian.org/pkg-multimedia/aeolus.git
-Vcs-Browser: http://git.debian.org/?p=pkg-multimedia/aeolus.git
+Vcs-Git: git://anonscm.debian.org/pkg-multimedia/aeolus.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-multimedia/aeolus.git
 Homepage: http://kokkinizita.linuxaudio.org/linuxaudio/aeolus/
 
 Package: aeolus
