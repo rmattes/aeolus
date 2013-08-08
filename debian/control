@@ -12,7 +12,7 @@ Build-Depends:
  libclxclient-dev (>= 3.9.0),
  libjack-dev,
  libreadline-dev,
- libzita-alsa-pcmi
+ libzita-alsa-pcmi-dev
 Standards-Version: 3.9.4
 Vcs-Git: git://anonscm.debian.org/pkg-multimedia/aeolus.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-multimedia/aeolus.git
