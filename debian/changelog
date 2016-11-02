@@ -1,3 +1,10 @@
+aeolus (0.9.0-2) unstable; urgency=medium
+
+  * Team upload.
+  * Remove myself from the Uploaders field.
+
+ -- Alessio Treglia <alessio@debian.org>  Wed, 02 Nov 2016 22:05:59 +0000
+
 aeolus (0.9.0-1) unstable; urgency=low
 
   * New upstream release.
