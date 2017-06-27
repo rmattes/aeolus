@@ -1,3 +1,8 @@
+aeolus (0.9.1-0) unstable; urgency=medium
+  *  (Closes: #814374).
+
+ -- Ralf Mattes <rm@mh-freiburg.de>  Tue, 27 Jun 2017 11:51:02 +0200
+
 aeolus (0.9.0-2) unstable; urgency=medium
 
   * Team upload.
@@ -145,4 +150,3 @@ aeolus (0.6.6+2-1) unstable; urgency=low
   * Initial release (Closes: #420586)
 
  -- Free Ekanayaka <freee@debian.org>  Mon, 23 Apr 2007 00:08:25 +0200
-
