@@ -1,5 +1,5 @@
 aeolus (0.9.1-0) unstable; urgency=medium
-  *  (Closes: #814374).
+  *  Changed thread initialisation (Closes: #814374).
 
  -- Ralf Mattes <rm@mh-freiburg.de>  Tue, 27 Jun 2017 11:51:02 +0200
 
